@@ -80,3 +80,22 @@ class Solution {
         return prev1;
     }
 }
+
+
+public class Main
+{
+    
+    public static int tile(int n) {
+        // base condition 
+        if (n <= 3) {
+            return 1;
+        }        // logic 
+        return tile(n - 1) + tile(n - 4);
+    }
+    
+	public static void main(String[] args) {
+	    int n = 6;
+	    System.out.println(tile(n));
+	    
+	}
+}
