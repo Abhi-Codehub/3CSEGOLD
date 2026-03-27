@@ -1,2 +1,183 @@
 Count Binary String without Consecutive One's
 
+Recursive Solution 
+
+public class Main {
+
+    static int BinaryString(int n) {
+        if (n <= 1)
+            return n;
+
+        return BinaryString(n - 1) + BinaryString(n - 2);
+    }
+
+    public static void main(String[] args) {
+        int n = 6;
+        System.out.println(BinaryString(n));
+    }
+}
+Time: O(2^n)
+Space: O(n)
+
+Memoization
+import java.util.*;
+
+public class Main {
+
+    static int BinaryString(int n, int[] dp) {
+        if (n <= 1)
+            return n;
+
+        if (dp[n] != -1)
+            return dp[n];
+
+        return dp[n] = BinaryString(n - 1, dp) + BinaryString(n - 2, dp);
+    }
+
+    public static void main(String[] args) {
+        int n = 6;
+
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, -1);
+
+        System.out.println(BinaryString(n, dp));
+    }
+}
+Time: O(n)
+Space: O(n)
+
+Tabulation
+public class Main {
+    public static void main(String[] args) {
+        int n = 6;
+
+        int[] dp = new int[n + 1];
+
+        dp[0] = 0;
+        dp[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+
+        System.out.println(dp[n]);
+    }
+}
+Time: O(n)
+Space: O(n)
+
+
+Space optimization 
+public class Main {
+    public static void main(String[] args) {
+        int n = 6;
+
+        if (n <= 1) {
+            System.out.println(n);
+            return;
+        }
+
+        int prev2 = 0; // fib(0)
+        int prev1 = 1; // fib(1)
+
+        for (int i = 2; i <= n; i++) {
+            int curr = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+
+        System.out.println(prev1);
+    }
+}
+Time: O(n)
+Space: O(1)
+
+
+LeetCode 198
+House Robber I
+Recursive Code
+class Solution {
+
+    public static int robFrom(int[] nums, int index) {
+        // base condition 
+        if(index >= nums.length) {
+            return 0;
+        }
+        // logic 
+        int inlcude = nums[index] + robFrom(nums, index + 2);
+        int exlcude = robFrom(nums, index + 1);
+
+        return Math.max(inlcude, exlcude);
+    }
+
+    public int rob(int[] nums) {
+        return robFrom(nums, 0);
+    }
+}
+
+dynamic Programming 
+Memoization 
+class Solution {
+
+    public static int robFrom(int[] nums, int index, int[] dp){
+
+        // base condition
+        if(index >= nums.length) {
+            return 0;
+        }
+
+        // logic
+        if(dp[index] != -1) return dp[index];  
+        int include = nums[index] + robFrom(nums, index + 2,dp);
+        int exclude = robFrom(nums, index + 1, dp);
+
+
+        return dp[index] = Math.max(include, exclude);
+    }
+
+    public int rob(int[] nums) {
+
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, -1);
+
+        return robFrom(nums, 0, dp);
+        
+    }
+}
+
+Tabulation 
+public class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
+        
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        
+        for (int i = 2; i < n; i++) {
+            dp[i] = Math.max(dp[i - 1], nums[i] + dp[i - 2]);
+        }
+        return dp[n - 1];
+    }
+}
+
+
+Space Optimization 
+public class Solution {
+    public int rob(int[] nums) {
+        int prev2 = 0, prev1 = 0;
+        for (int num : nums) {
+            int temp = Math.max(prev1, num + prev2);
+            prev2 = prev1;
+            prev1 = temp;
+        }
+        return prev1;
+    }
+}
+
+
+
+
+
