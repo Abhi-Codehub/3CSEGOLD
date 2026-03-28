@@ -1,0 +1,34 @@
+Maximise number of cuts in a rod if it can be cut only in given 3 sizes
+
+Recursive Code 
+public class Main
+{
+    public static int maxCuts(int n, int a, int b, int c) {
+        // base condition 
+        if ( n == 0) return 0;
+        
+        if (n <0 ) return -1;
+        // logic 
+        int result = Math.max(
+                              maxCuts(n - a, a, b, c),
+                    Math.max( 
+                              maxCuts(n - b, a, b, c),
+                              maxCuts(n - c, a, b, c)
+                            )
+            );
+                              
+        if( result == -1){
+            return -1;
+        }
+        return result + 1;
+    }
+    
+	public static void main(String[] args) {
+		int n = 17;
+		int a = 10;
+		int b = 11;
+		int c = 3;
+		
+		System.out.println(maxCuts(n,a,b,c));
+	}
+}
