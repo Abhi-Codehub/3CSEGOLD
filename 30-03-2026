@@ -41,3 +41,30 @@ public class Main
 		System.out.println(maxCuts(n,a,b,c,dp));
 	}
 }
+
+Coin Change 
+Recursive Approach 
+class Solution {
+
+    public static int minCoins(int[] coins, int amount) {
+        // base condition 
+        if(amount == 0) return 0;
+        if(amount < 0) return Integer.MAX_VALUE;
+        // logic 
+        int minimum = Integer.MAX_VALUE;
+        for(int i = 0; i < coins.length; i++) {
+           int ans = minCoins(coins, amount - coins[i]);
+
+        if(ans != Integer.MAX_VALUE) {
+            minimum = Math.min(minimum, ans + 1) ;
+            }    
+        }
+        return minimum;
+    }
+
+    public int coinChange(int[] coins, int amount) {
+        int ans = minCoins(coins, amount);
+        return (ans == Integer.MAX_VALUE) ? -1 : ans;
+    }
+}
+
