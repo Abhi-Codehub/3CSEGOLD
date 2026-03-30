@@ -1,3 +1,5 @@
+Maximise number of cuts in a rod if it can be cut only in given 3 sizes
+
 Dynamic Programming Approach 
 Memoization 
 import java.util.*;
