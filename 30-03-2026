@@ -1,0 +1,41 @@
+Dynamic Programming Approach 
+Memoization 
+import java.util.*;
+
+public class Main
+{
+    public static int maxCuts(int n, int a, int b, int c, int[] dp) {
+        // base condition 
+        if ( n == 0) return 0;
+        
+        if (n < 0 ) return -1;
+        // to check if the data is present or not 
+        if(dp[n] != -2) {
+            return dp[n];
+        }
+        // logic 
+        int result = Math.max(
+                              maxCuts(n - a, a, b, c, dp),
+                    Math.max( 
+                              maxCuts(n - b, a, b, c, dp),
+                              maxCuts(n - c, a, b, c, dp)
+                            )
+            );
+                              
+        if( result == -1){
+            return -1;
+        } else {
+        dp[n] = result + 1;
+    }
+        return dp[n];
+    }
+	public static void main(String[] args) {
+		int n = 17;
+		int a = 10;
+		int b = 11;
+		int c = 3;
+		int[] dp = new int [n + 1];
+		Arrays.fill(dp, -2);
+		System.out.println(maxCuts(n,a,b,c,dp));
+	}
+}
