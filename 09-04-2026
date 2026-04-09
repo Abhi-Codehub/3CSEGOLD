@@ -1,0 +1,139 @@
+Trees 
+PreOder traversal
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+
+    public void traversal(TreeNode root, List<Integer> ans) {
+
+        if(root == null){
+            return;
+        }
+        ans.add(root.val);
+        traversal(root.left, ans);
+        traversal(root.right, ans);
+    }
+
+    public List<Integer> preorderTraversal(TreeNode root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        traversal(root, ans);
+        return ans;
+        
+    }
+}
+InOrder Traversal
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    
+    public void traversal(TreeNode root, List<Integer> ans) {
+
+        if(root == null){
+            return;
+        }
+        traversal(root.left, ans);
+        ans.add(root.val);
+        traversal(root.right, ans);
+    }
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        traversal(root, ans);
+        return ans;
+    }
+}
+PostOrder Traversal
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+
+    public void traversal(TreeNode root, List<Integer> result) {
+
+        if(root == null) {
+            return;
+        }
+
+// postorder traversal
+        traversal(root.left, result);
+        traversal(root.right, result);
+        result.add(root.val);
+    }
+
+    public List<Integer> postorderTraversal(TreeNode root) {
+
+        List<Integer> result = new ArrayList<>();
+        traversal(root, result);
+        return result;
+
+    }
+}
+Maximum Depth of binary Tree
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int maxDepth(TreeNode root) {
+
+        if(root == null) {
+            return 0;
+        }
+
+        int leftHeight = maxDepth(root.left);
+        int rightHeight = maxDepth(root.right);
+
+        int maxHeight = Math.max(leftHeight, rightHeight) + 1;
+        return maxHeight;
+        
+    }
+}
