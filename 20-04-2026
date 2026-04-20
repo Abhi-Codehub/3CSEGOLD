@@ -1,0 +1,65 @@
+LeetCode 547
+Number of Provinces
+class Solution {
+
+    private void dfs(int[][] isConnected, boolean[] visited, int index){
+        visited[index] = true;
+        for(int j = 0; j < isConnected.length; j++) {
+            if(isConnected[index][j] == 1 && !visited[j]) {
+                dfs(isConnected, visited, j);
+            }
+        }
+    }
+
+    public int findCircleNum(int[][] isConnected) {
+        int n = isConnected.length;
+        boolean[] visited = new boolean[n];
+        int count = 0;
+
+        for(int i = 0; i < n; i++) {
+            if(!visited[i]) {
+                dfs(isConnected, visited, i);
+                count++;
+            }
+        }
+        return count;
+    }
+}
+
+LeetCode 200
+Number of Islands
+class Solution {
+    private int rows, cols;
+    public int numIslands(char[][] grid) {
+        rows = grid.length;
+        cols = grid[0].length;
+        int islands = 0;
+
+        for(int row = 0;  row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                if(grid[row][col] == '1') {
+                    dfs(grid, row, col);
+                    islands++;
+                }
+            }
+        }
+        return islands;
+    }
+
+    private void dfs(char[][] grid, int row, int col) {
+        if(row < 0 || row >= rows || col < 0 || col >= cols || grid[row][col] != '1') {
+            return;
+        }
+        grid[row][col] = '*';
+        // visit all four directions
+        // up
+        dfs(grid, row - 1, col);
+        // down
+        dfs(grid, row + 1, col);
+        // left
+        dfs(grid, row , col - 1);
+        // right
+        dfs(grid, row , col + 1);
+
+    }
+}
