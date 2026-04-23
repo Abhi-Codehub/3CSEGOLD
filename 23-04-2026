@@ -1,0 +1,40 @@
+Cycle Detection in a directed Graph
+class Solution {
+    
+    public static boolean dfs(int node, ArrayList<ArrayList<Integer>> adj, int visited[], int pathVisited[] ) {
+        visited[node] = 1;
+        pathVisited[node] = 1;
+        
+        for(int adjacentNode : adj.get(node)) {
+            if(visited[adjacentNode] == 0) {
+                if(dfs(adjacentNode, adj, visited, pathVisited))
+                return true;
+            } else if(pathVisited[adjacentNode] == 1){
+                return true;
+            }
+        }
+        pathVisited[node] = 0;
+        return false;
+    }
+    
+    public boolean isCyclic(int V, int[][] edges) {
+       ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for(int i = 0; i < V; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for(int[] e : edges) {
+            adj.get(e[0]).add(e[1]);
+           // adj.get(e[1]).add(e[0]);
+        }
+        int visited[] = new int[V];
+        int pathVisited[] = new int[V];
+        
+        for(int i = 0; i < V; i++) {
+            if(visited[i] == 0) {
+                if(dfs(i, adj, visited, pathVisited))
+                return true;
+            }
+        }    
+        return false;
+    }
+}
